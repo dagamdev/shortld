@@ -1,7 +1,27 @@
 ---
-import Layout from './layouts/Layout.astro'
+import Layout from '@/layouts/Layout.astro'
+import { SignIn, SignOut } from 'auth-astro/components'
+
+const { session } = Astro.locals
+
+console.log(session)
 ---
 
 <Layout title='ShortLD'>
 	<h1>Hola, title {Astro.locals.title}</h1>
+	{session 
+		? <>
+			<strong>{session.user?.name}</strong>
+			{session.user?.image && <img src={session.user.image} alt="hola" width="64" height="64" />}
+			<SignOut>Sign out</SignOut>
+		</>
+		: <>
+			<SignIn provider='google'>
+				Log in with Google	
+			</SignIn>
+			<SignIn provider='github'>
+				Log in with GitHub
+			</SignIn>
+		</>
+	}
 </Layout>
