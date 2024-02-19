@@ -1,0 +1,20 @@
+---
+import { SignIn, SignOut } from "auth-astro/components"
+
+const { session } = Astro.locals
+---
+
+<header class="static top-0 px-5 py-4 flex items-center justify-between bg-slate-800">
+  <a class="text-3xl font-bold" href="/">ShortLD</a>
+  {session === null
+    ? <SignIn class="text-lg font-semibold py-2 px-4 rounded-md transition dark:bg-emerald-600 dark:hover:bg-emerald-700">Iniciar sesión</SignIn>
+    : session.user !== undefined && <section class="flex items-center gap-x-3">
+      <SignOut class="text-lg font-semibold py-2 px-4 rounded-md transition bg-gray-700 hover:bg-gray-600">Cerrar sesión</SignOut>
+      <img
+        class="rounded-full size-14 border border-gray-500"
+        src={session.user.image}
+        alt={`Imagen de ${session.user.name}`} width="64" height="64"
+      > 
+    </section>
+  }
+</header>
