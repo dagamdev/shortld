@@ -3,7 +3,13 @@
 declare namespace App {
 
   interface Locals {
-    title: string
+    user: {
+      id: string
+      name: string | null
+      email: string
+      createdAt: Date
+      updatedAt: Date
+    } | null
     session: import('@auth/core/types').Session | null
   }
 }
