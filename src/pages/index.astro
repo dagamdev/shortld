@@ -1,27 +1,15 @@
 ---
-import Layout from '@/layouts/Layout.astro'
-import { SignIn, SignOut } from 'auth-astro/components'
+import PublicLayout from '@/layouts/publicLayout.astro'
+import ShortenLink from '@/components/shortenLink.astro'
 
 const { session } = Astro.locals
-
-console.log(session)
 ---
 
-<Layout title='ShortLD'>
-	<h1>Hola, title {Astro.locals.title}</h1>
-	{session 
-		? <>
-			<strong>{session.user?.name}</strong>
-			{session.user?.image && <img src={session.user.image} alt="hola" width="64" height="64" />}
-			<SignOut>Sign out</SignOut>
-		</>
-		: <>
-			<SignIn provider='google'>
-				Log in with Google	
-			</SignIn>
-			<SignIn provider='github'>
-				Log in with GitHub
-			</SignIn>
-		</>
-	}
-</Layout>
+<PublicLayout>
+	<section class="max-w-xl mx-auto py-20 space-y-2 text-lg text-balance font-semibold">
+		<p>Acortador de enlaces, tienes un enlace muy largo que quieres compartir con alguien o quieres publicar en tu bio o en una publicación.</p>
+		<p>Acortalo, quedará mucho mejor</p>
+	</section>
+
+	<ShortenLink session={session} />
+</PublicLayout>
