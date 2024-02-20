@@ -18,14 +18,13 @@ const link = await Prisma.link.findFirst({
 <Layout title={`${code} | ShortLD`} >
   <main class="flex items-center min-h-screen" data-url={link?.url} data-session={(Astro.locals.session !== null) + ''}>
     <section class="max-w-lg mx-auto text-lg text-center space-y-4 font-semibold">
-      {isLoged
-        ? <p>Redirigiendo...</p>
-        : <>
-          <p class="text-balance">Es feo y poco práctico usar enlaces largos. ¿Por qué no acortarlos?</p>
-          <p class="">Acorta cualquier enlace gratis.</p>
-          <a href="/" target="_blank" class="inline-block py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700">!Acortar enlace¡</a>
+      {isLoged === false && <>
+          <p class="text-balance"><span class="text-blue-500">Es feo y poco práctico usar enlaces largos.</span> ¿Por qué no acortarlos?</p>
+          <p class="text-yellow-500">Acorta cualquier enlace gratis.</p>
+          <a href="/" target="_blank" class="inline-block py-2 px-4 rounded-lg text-gray-100 bg-emerald-500 hover:bg-emerald-600">!Acortar enlace¡</a>
         </>
       }
+      <em class="block text-gray-900/70 dark:text-gray-200/60">Redirigiendo...</em>
     </section>
   </main>
 </Layout>
