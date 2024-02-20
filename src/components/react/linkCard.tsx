@@ -19,7 +19,8 @@ const copyIcon = (
 )
 
 const copyCheckIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg"
+  <svg className='text-green-500'
+    xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
@@ -52,17 +53,17 @@ export default function LinkCard ({ link }: {
       setCopied(true)
       setTimeout(() => {
         setCopied(false)
-      }, 4_000)
+      }, 2_000)
     }
   }
 
   return (
-    <li className='flex justify-between py-2 px-4 rounded-lg transition hover:bg-gray-500'>
-      <p className='space-x-4'>
-        <strong>{link.code}</strong>
-        <em>{link.url}</em>
+    <li className='flex items-center justify-between py-2.5 px-4 gap-x-3 rounded-lg transition bg-zinc-200 dark:bg-zinc-800'>
+      <p className='truncate'>
+        <strong className='block'>{link.code}</strong>
+        <em className='ml-1'>{link.url}</em>
       </p>
-      <button onClick={handleClick}>{copied ? copyCheckIcon : copyIcon}</button>
+      <button className='p-1.5 flex rounded-md bg-zinc-300 dark:bg-zinc-700' onClick={handleClick}>{copied ? copyCheckIcon : copyIcon}</button>
     </li>
   )
 }
