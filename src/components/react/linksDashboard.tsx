@@ -19,7 +19,6 @@ export default function LinksDashboard ({ user }: {
     const link = ev.currentTarget.url.value
     if (typeof link !== 'string') return
     if (user === null) return
-    console.log(link)
 
     fetch('api/links', {
       method: 'POST',
@@ -33,6 +32,8 @@ export default function LinksDashboard ({ user }: {
     }).then(res => res.json()).then(data => {
       setLinks(ls => [...ls, data])
     }).catch(console.error)
+
+    ev.currentTarget.url.value = ''
   }
 
   return (
