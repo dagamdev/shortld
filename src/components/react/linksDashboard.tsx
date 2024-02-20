@@ -42,17 +42,17 @@ export default function LinksDashboard ({ user }: {
         className="flex gap-x-3"
       >
         <input id="url"
-          className="flex-1 py-2 px-4 rounded-md bg-zinc-400 dark:bg-zinc-700"
+          className="flex-1 py-2 px-4 rounded-md border border-gray-300 dark:border-gray-500 text-gray-900 placeholder-gray-600/80 dark:placeholder-gray-400/80 focus:ring-blue-500 focus:border-blue-500 bg-zinc-200 dark:bg-zinc-700"
           type="url"
           placeholder="Enlace a acortar"
           required
         />
-        <button className="py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-600">Acortar</button>
+        <button className="py-2 px-4 rounded-md font-semibold text-gray-200 bg-blue-500 hover:bg-blue-600">Acortar</button>
       </form>
       {links.length !== 0 &&
         <section>
-          <strong>Enlaces: {links.length}</strong>
-          <ul className='mt-3'>
+          <strong className='text-lg text-gray-700 dark:text-gray-400'>Enlaces: {links.length}</strong>
+          <ul className='mt-3 space-y-3'>
             {links.map(l => <LinkCard key={l.id} link={l} />)}
           </ul>
         </section>
