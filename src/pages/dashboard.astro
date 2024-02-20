@@ -1,7 +1,8 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import PublicLayout from '@/layouts/publicLayout.astro'
+import LinksDashbaord from '@/components/react/linksDashboard'
 ---
 
-<Layout title="ShortDL | Dashboard">
-  hola este es el dashboard
-</Layout>
+<PublicLayout title="Dashboard">
+  <LinksDashbaord user={Astro.locals.user} client:load />
+</PublicLayout>
