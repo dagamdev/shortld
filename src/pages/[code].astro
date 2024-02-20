@@ -16,7 +16,7 @@ const link = await Prisma.link.findFirst({
 ---
 
 <Layout title={`${code} | ShortLD`} >
-  <main class="flex items-center min-h-screen" data-url={link?.url} data-session={Astro.locals.session !== null}>
+  <main class="flex items-center min-h-screen" data-url={link?.url} data-session={(Astro.locals.session !== null) + ''}>
     <section class="max-w-lg mx-auto text-lg text-center space-y-4 font-semibold">
       {isLoged
         ? <p>Redirigiendo...</p>
