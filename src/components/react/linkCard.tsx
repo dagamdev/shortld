@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Link } from '@/types'
+import type { Link } from '@prisma/client'
 
 const copyIcon = (
   <svg xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ export default function LinkCard ({ link }: {
     <li className='flex justify-between py-2 px-4 rounded-lg transition hover:bg-gray-500'>
       <p className='space-x-4'>
         <strong>{link.code}</strong>
-        <em>{link.link}</em>
+        <em>{link.url}</em>
       </p>
       <button onClick={handleClick}>{copied ? copyCheckIcon : copyIcon}</button>
     </li>
