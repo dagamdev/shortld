@@ -13,8 +13,8 @@ const appName = 'ShortLD'
 ---
 
 <Layout title={title === undefined ? appName : `${title} | ${appName}`} description={description}>
-  <main class="min-h-screen space-y-6">
-    <Header />
+  <Header />
+  <main class="min-h-screen space-y-6 p-5">
     <slot />
   </main>
 </Layout>
