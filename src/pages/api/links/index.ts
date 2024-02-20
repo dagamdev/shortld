@@ -59,18 +59,16 @@ export async function POST ({ request }: APIContext) {
     }
 
     const url = new URL(link as string)
-
     const code = generateCode()
 
     const newLink = await Prisma.link.create({
       data: {
-        link: url.href,
+        url: url.href,
         userId,
         code
       }
     })
 
-    console.log(newLink)
     return createJsonRes(newLink)
   } catch (error) {
     return handleError(error)
