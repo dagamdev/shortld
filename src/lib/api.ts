@@ -1,6 +1,9 @@
+import { Prisma } from './prisma'
+
 const headers = {
   'Content-Type': 'application/json'
 }
+const CHARS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 export function handleError (error: unknown) {
   return new Response(JSON.stringify({
@@ -19,12 +22,41 @@ export function createJsonRes (body: any, init?: ResponseInit) {
   return new Response(JSON.stringify(body), init)
 }
 
-export function generateCode () {
+function getCodeLength (codes: string[]) {
+  let codeLength = 1
+
+  for (let l = 1; l < 6; l++) {
+    const numberOfCodes = (CHARS.length ** l)
+    const codesByLength = codes.filter(c => c.length === l).length
+
+    if (codesByLength < numberOfCodes) return l
+    if (codesByLength >= numberOfCodes) codeLength++
+  }
+
+  return codeLength
+}
+
+function generateCode (codes: string[]) {
+  const codeLength = getCodeLength(codes)
   let code = ''
 
-  for (let i = 0; i < 6; i++) {
-    const randomChar = (Math.floor(Math.random() * 21)).toString(20)
-    code += randomChar
+  for (let i = 0; i < codeLength; i++) {
+    code += CHARS[Math.floor(Math.random() * CHARS.length)]
+  }
+
+  return code
+}
+
+export async function getCode () {
+  const codes = (await Prisma.link.findMany({
+    select: {
+      code: true
+    }
+  })).map(l => l.code)
+  let code = generateCode(codes)
+
+  while (codes.some(s => s === code)) {
+    code = generateCode(codes)
   }
 
   return code
