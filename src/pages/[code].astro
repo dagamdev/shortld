@@ -15,7 +15,7 @@ const link = await Prisma.link.findFirst({
 })
 ---
 
-<Layout title={`${code} | ShortLD`} >
+<Layout title={`${code} | ShortLD`} description=`Código de enlace acortado ${code}. ${link?.url ? 'Enlace acortado: ' + link.url : 'El código de enlace no hace referencia a ningún enlace.'}\n Acorta enlaces sin límite de cantidad ni de longitud, y de forma gratuita.` >
   <main class="flex items-center min-h-screen" data-url={link?.url} data-session={(Astro.locals.session !== null) + ''}>
     <section class="max-w-lg mx-auto text-lg text-center space-y-4 font-semibold">
       {isLoged === false && <>
