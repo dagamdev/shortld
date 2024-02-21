@@ -1,4 +1,4 @@
-import { createJsonRes, handleError, generateCode } from '@/lib/api'
+import { createJsonRes, handleError, getCode } from '@/lib/api'
 import { Prisma } from '@/lib/prisma'
 import type { APIContext } from 'astro'
 
@@ -59,7 +59,7 @@ export async function POST ({ request }: APIContext) {
     }
 
     const url = new URL(link as string)
-    const code = generateCode()
+    const code = await getCode()
 
     const newLink = await Prisma.link.create({
       data: {
