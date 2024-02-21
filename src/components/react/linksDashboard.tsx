@@ -42,7 +42,7 @@ export default function LinksDashboard ({ user }: {
         className="flex gap-x-3"
       >
         <input id="url"
-          className="flex-1 py-2 px-4 rounded-md border border-gray-300 dark:border-gray-500 text-gray-900 placeholder-gray-600/80 dark:placeholder-gray-400/80 focus:ring-blue-500 focus:border-blue-500 bg-zinc-200 dark:bg-zinc-700"
+          className="flex-1 py-2 px-4 rounded-md border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-gray-100 placeholder-gray-600/80 dark:placeholder-gray-400/80 focus:ring-blue-500 focus:border-blue-500 bg-zinc-200 dark:bg-zinc-700"
           type="url"
           placeholder="Enlace a acortar"
           required
