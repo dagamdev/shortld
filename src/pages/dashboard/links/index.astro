@@ -1,0 +1,9 @@
+---
+import PublicLayout from '@/layouts/publicLayout.astro'
+import LinksDashbaord from '@/components/react/linksDashboard'
+---
+
+<PublicLayout title="Links | Dashboard">
+  <LinksDashbaord user={Astro.locals.user} client:load />
+  <alot />
+</PublicLayout>
