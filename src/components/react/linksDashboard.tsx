@@ -8,7 +8,7 @@ export default function LinksDashboard ({ user }: {
   const [links, setLinks] = useState<Link[]>([])
 
   useEffect(() => {
-    fetch('api/links').then(res => res.json()).then(data => {
+    fetch(`${location.origin}/api/links`).then(res => res.json()).then(data => {
       setLinks(data as Link[])
     }).catch(console.error)
   }, [])
@@ -20,7 +20,7 @@ export default function LinksDashboard ({ user }: {
     if (typeof link !== 'string') return
     if (user === null) return
 
-    fetch('api/links', {
+    fetch(`${location.origin}/api/links`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
