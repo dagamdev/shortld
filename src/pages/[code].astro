@@ -4,15 +4,32 @@ import { Prisma } from '@/lib/prisma'
 
 const { code } = Astro.params
 const isLoged = Astro.locals.session !== null
+let link: {
+  id: string
+  url: string
+} | null = null
 
-const link = await Prisma.link.findFirst({
-  where: {
-    code
-  },
-  select: {
-    url: true
+try {
+  link = await Prisma.link.findUnique({
+    where: {
+      code
+    },
+    select: {
+      id: true,
+      url: true
+    }
+  })
+  
+  if (link !== null) {
+    await Prisma.click.create({
+      data: {
+        linkId: link.id
+      }
+    })
   }
-})
+} catch (error) {
+  console.error(error)
+}
 ---
 
 <Layout title={`${code} | ShortLD`} description=`Código de enlace acortado ${code}. ${link?.url ? 'Enlace acortado: ' + link.url : 'El código de enlace no hace referencia a ningún enlace.'}\n Acorta enlaces sin límite de cantidad ni de longitud, y de forma gratuita.` >
