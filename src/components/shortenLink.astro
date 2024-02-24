@@ -1,5 +1,5 @@
 ---
-import LinkIcon from '@/icons/link.astro'
+import UnLinkIcon from '@/icons/unLink.astro'
 import type { Session } from '@auth/core/types'
 
 interface Props {
@@ -12,7 +12,7 @@ const { session } = Astro.props
 <button id="shorter-link" data-session={JSON.stringify(session)}
   class="flex items-center gap-x-3 text-lg font-semibold py-2 px-4 rounded-md transition text-gray-100 bg-blue-600 hover:bg-blue-700"
 >
-  <LinkIcon /> Acortar enlace
+  <UnLinkIcon class="size-6" troke-width="2" /> Acortar enlace
 </button>
 
 <script>
