@@ -1,7 +1,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import type { Link } from '@prisma/client'
 import LinkCard from './linkCard'
-import { customFetch } from '@/lib/api'
+import { customFetch } from '@/lib/client'
 
 export default function LinksDashboard ({ user }: {
   user: App.Locals['user']

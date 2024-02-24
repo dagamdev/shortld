@@ -21,6 +21,7 @@ const { clicks, linkId } = Astro.props
 
 <script>
   import ApexCharts from 'apexcharts'
+  import { customFetch } from '@/lib/client'
 
   interface ClickRes {
     id: string
@@ -38,7 +39,7 @@ const { clicks, linkId } = Astro.props
 
       const linkId = this.dataset.linkid
       
-      fetch(`${location.origin}/api/clicks${linkId === undefined ? '' : '/' + linkId}`).then(res => res.json()).then((data: ClickRes[]) => {
+      customFetch(`clicks${linkId === undefined ? '' : '/' + linkId}`).then((data: ClickRes[]) => {
         const clicks = data.slice(-100)
         const clickChartData: DayData[] = []
         const dayTime = 24 * 60 * 60_000
