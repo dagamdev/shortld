@@ -62,7 +62,7 @@ export async function getCode () {
   return code
 }
 
-export async function custmoFetch (path: string, init?: RequestInit) {
+export async function customFetch (path: string, init?: RequestInit) {
   const response = await fetch(`${location.origin}/api/${path}`, init)
   const contenType = response.headers.get('Content-Type')
 
