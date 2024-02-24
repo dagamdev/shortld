@@ -28,7 +28,7 @@ export const onRequest = defineMiddleware(async ({ locals, request, redirect, ur
     }
   }
 
-  if (url.pathname === '/dashboard' && session === null) return redirect('/')
+  if (url.pathname.includes('/dashboard') && session === null) return redirect('/')
 
   return await next()
 })
