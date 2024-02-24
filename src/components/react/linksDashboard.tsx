@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import type { Link } from '@prisma/client'
 import LinkCard from './linkCard'
+import { customFetch } from '@/lib/api'
 
 export default function LinksDashboard ({ user }: {
   user: App.Locals['user']
@@ -8,8 +9,9 @@ export default function LinksDashboard ({ user }: {
   const [links, setLinks] = useState<Link[]>([])
 
   useEffect(() => {
-    fetch(`${location.origin}/api/links`).then(res => res.json()).then(data => {
-      setLinks(data as Link[])
+    customFetch('links').then(data => {
+      console.log(data)
+      if (Array.isArray(data)) setLinks(data as Link[])
     }).catch(console.error)
   }, [])
 
@@ -20,7 +22,7 @@ export default function LinksDashboard ({ user }: {
     if (typeof link !== 'string') return
     if (user === null) return
 
-    fetch(`${location.origin}/api/links`, {
+    customFetch(`${location.origin}/api/links`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,8 +31,8 @@ export default function LinksDashboard ({ user }: {
         link,
         userId: user.id
       })
-    }).then(res => res.json()).then(data => {
-      setLinks(ls => [...ls, data])
+    }).then(data => {
+      if ('id' in data && 'code' in data) setLinks(ls => [...ls, data])
     }).catch(console.error)
 
     ev.currentTarget.url.value = ''
