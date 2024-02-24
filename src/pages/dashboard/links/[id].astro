@@ -1,9 +1,29 @@
 ---
+import ClickChart from '@/components/clickChart.astro'
 import PublicLayout from '@/layouts/publicLayout.astro'
+import { Prisma } from '@/lib/prisma'
 
-const { id } = Astro.props
+const { user } = Astro.locals
+const { id } = Astro.params
+let clicks = 0
+
+try {
+  clicks = await Prisma.click.count({
+    where: {
+      link: {
+        id,
+        userId: user?.id
+      }
+    }
+  })
+} catch (error) {
+  console.error(error)
+}
 ---
 
 <PublicLayout title="Manage link">
-  <p>Link {id}</p>
+  <section class="flex flex-col gap-y-4 max-w-lg mx-auto">
+    <h2 class="font-bold text-2xl">Administrar enlace</h2>
+    <ClickChart clicks={clicks} linkId={id} />
+  </section>
 </PublicLayout>
