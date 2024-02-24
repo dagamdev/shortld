@@ -1,8 +1,42 @@
 ---
 import PublicLayout from '@/layouts/publicLayout.astro'
-import LinksDashbaord from '@/components/react/linksDashboard'
+import { Prisma } from '@/lib/prisma'
+import ClickChart from '@/components/clickChart.astro'
+ 
+const { user } = Astro.locals
+let linksCount = 0
+let clicks = 0
+
+try {
+  linksCount = await Prisma.link.count({
+    where: {
+      userId: user?.id
+    }
+  })
+
+  clicks = await Prisma.click.count({
+    where: {
+      link: {
+        userId: user?.id
+      }
+    }
+  })
+} catch (error) {
+  console.error(error)
+}
 ---
 
 <PublicLayout title="Dashboard">
-  <h1>Dashboard</h1>
+  <section class="flex flex-col gap-y-4 max-w-lg mx-auto">
+    <p>Has creado <span class="font-bold">{linksCount}</span> enlaces</p>
+    <p><span class="font-bold">{clicks}</span> clicks en total</p>
+
+    <ClickChart clicks={clicks} />
+
+    <div class="flex justify-center mb-10">
+      <a href="/dashboard/links"
+        class="inline-block py-2 px-4 font-semibold rounded-md bg-emerald-600"
+      >Administrar enlaces</a>
+    </div>
+  </section>
 </PublicLayout>
