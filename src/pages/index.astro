@@ -6,10 +6,28 @@ const { session } = Astro.locals
 ---
 
 <PublicLayout>
-	<section class="max-w-xl mx-auto py-20 space-y-2 text-lg text-balance font-semibold">
-		<p>Acortador de enlaces, tienes un enlace muy largo que quieres compartir con alguien o quieres publicar en tu bio o en una publicación.</p>
-		<p>Acortalo, quedará mucho mejor</p>
+	<section class="max-w-xl mx-auto my-24 text-lg font-semibold">
+		<h1 class="mb-10 text-5xl font-bold text-slate-600 dark:text-slate-400">Short<span class="text-blue-600 dark:text-blue-500">L</span><span class="text-green-600 dark:text-green-500">D</span></h1>
+		
+		<p class="text-slate-600 dark:text-slate-300">Acorta enlaces gratis, sin límite de cantidad ni de longitud.</p>
+		<p class="mb-16 text-slate-600 dark:text-slate-300">Obtén estadísticas de clics en cada uno de tus enlaces.</p>
+		
+		<ShortenLink session={session} />
 	</section>
 
-	<ShortenLink session={session} />
+	<section class="flex flex-col max-w-xl mx-auto py-20 space-y-6 text-balance">
+		<h2 class="text-3xl font-bold text-slate-600 dark:text-slate-300">Sobre ShortLD</h2>
+
+		<p>
+			En <strong class="text-green-600 dark:text-green-500">ShortLD</strong> puedes acortar cualquier <strong class="text-blue-600 dark:text-blue-500">URL</strong> en cuestión de segundos, haciendo que sea más fácil compartir contenido en tus redes sociales, correos electrónicos o mensajes.
+		</p>
+
+		<p>
+			<strong class="text-green-600 dark:text-green-500">¿Cómo funciona Shortify?</strong> Es simple. Solo necesitas ir a tu página de enlaces, pegar tu enlace largo en el campo de entrada y listo. Tu enlace estará acortado. Ahora solo tienes que copiar el nuevo enlace y utilizarlo donde quieras.
+		</p>
+
+		<p>
+			Pero eso no es todo, <strong class="text-blue-600 dark:text-blue-500">ShortLD</strong> también ofrece funciones adicionales, como el seguimiento de estadísticas de clics para que puedas ver cuántas personas están interactuando con tus enlaces.
+		</p>
+	</section>
 </PublicLayout>
