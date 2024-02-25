@@ -21,7 +21,7 @@ export default function LinksDashboard ({ user }: {
     if (typeof link !== 'string') return
     if (user === null) return
 
-    customFetch(`${location.origin}/api/links`, {
+    customFetch('links', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
