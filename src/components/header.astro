@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import { SignIn, SignOut } from 'auth-astro/components'
 import LoginIcon from '@/icons/login.astro'
 import LogoutIcon from '@/icons/logout.astro'
@@ -34,11 +35,11 @@ const headerLinks = [
         <SignOut
           class="flex items-center gap-x-2 font-semibold py-1.5 px-2.5 rounded-md transition border-2 text-red-500 border-red-500 hover:bg-red-500 hover:text-gray-100"
         ><LogoutIcon /> Cerrar sesión</SignOut>
-        <img
+        {session.user.image && <Image
           class="rounded-full size-10"
           src={session.user.image}
-          alt={`Imagen de ${session.user.name}`} width="40" height="40"
-        > 
+          alt={`Imagen de ${session.user.name}`} loading={'eager'} width="40" height="40"
+        >}
       </section>  
     </Fragment>
   }
