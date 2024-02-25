@@ -26,7 +26,7 @@ const headerLinks = [
     : session.user !== undefined && <Fragment>
       <nav class="space-x-4 text-lg font-semibold">
         {headerLinks.map(hl => <a
-          class={`${Astro.url.pathname === hl.path ? 'underline text-sky-500/70 ' : 'text-gray-900/50 dark:text-gray-100/50'} hover:underline hover:text-sky-500`}
+          class={`${Astro.url.pathname === hl.path ? 'underline text-gray-100 ' : 'text-gray-900/50 dark:text-gray-100/80 hover:underline hover:text-gray-900 dark:hover:text-gray-100'}`}
           href={hl.path}
         >{hl.name}</a>)}
       </nav>
