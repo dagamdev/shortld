@@ -1,13 +1,23 @@
 ---
 import ClickChart from '@/components/clickChart.astro'
 import PublicLayout from '@/layouts/publicLayout.astro'
+import LinkManage from '@/components/react/linkManager'
 import { Prisma } from '@/lib/prisma'
+import { type Link } from '@prisma/client'
 
 const { user } = Astro.locals
 const { id } = Astro.params
+const { origin } = Astro.url
+let link: Link | null = null
 let clicks = 0
 
 try {
+  link = await Prisma.link.findUnique({
+    where: {
+      id
+    }
+  })
+
   clicks = await Prisma.click.count({
     where: {
       link: {
@@ -23,7 +33,18 @@ try {
 
 <PublicLayout title="Manage link">
   <section class="flex flex-col gap-y-4 max-w-lg mx-auto">
-    <h2 class="font-bold text-2xl">Administrar enlace</h2>
-    <ClickChart clicks={clicks} linkId={id} />
+    {link
+      ? <Fragment>
+        <h2 class="font-bold text-2xl">Administrar enlace</h2>
+        <LinkManage link={link} origin={origin} client:load />
+        <ClickChart clicks={clicks} linkId={id} />
+      </Fragment>
+      : <Fragment>
+        <p>
+          <p class="text-center text-xl font-semibold">El enlace que buscas no existe</p>
+          <a class="text-center text-sky-500 hover:underline" href="/dashboard/links">Volver a la lista de enlaces</a> 
+        </p>
+      </Fragment>
+    }
   </section>
 </PublicLayout>
