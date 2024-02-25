@@ -58,16 +58,16 @@ export default function LinkCard ({ link }: {
   }
 
   return (
-    <li className='flex items-center justify-between py-2.5 px-4 gap-x-3 rounded-lg transition bg-zinc-200 dark:bg-zinc-800'>
+    <li className='flex items-center justify-between py-2.5 px-4 gap-x-3 rounded-lg transition bg-zinc-200 dark:bg-zinc-700'>
       <a href={`/dashboard/links/${link.id}`}
         className='truncate'
       >
         <p>
-          <strong className='block'>{link.code}</strong>
-          <em className='ml-1'>{link.url}</em>
+          <strong>{link.code}</strong>
+          <em className='block ml-1 truncate'>{link.url}</em>
         </p>
       </a>
-      <button className='p-1.5 flex rounded-md bg-zinc-300 dark:bg-zinc-700' onClick={handleClick}>{copied ? copyCheckIcon : copyIcon}</button>
+      <button className='p-1.5 flex rounded-md bg-zinc-400/60 dark:bg-zinc-500/60' onClick={handleClick}>{copied ? copyCheckIcon : copyIcon}</button>
     </li>
   )
 }
