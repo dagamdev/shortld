@@ -10,7 +10,6 @@ export default function LinksDashboard ({ user }: {
 
   useEffect(() => {
     customFetch('links').then(data => {
-      console.log(data)
       if (Array.isArray(data)) setLinks(data as Link[])
     }).catch(console.error)
   }, [])
@@ -39,7 +38,7 @@ export default function LinksDashboard ({ user }: {
   }
 
   return (
-    <section className="max-w-lg mx-auto my-20 space-y-6">
+    <section className="max-w-lg mx-auto my-20 space-y-8">
       <form id="shortenLink-form" onSubmit={handleSubmit}
         className="flex gap-x-3"
       >
@@ -53,8 +52,8 @@ export default function LinksDashboard ({ user }: {
       </form>
       {links.length !== 0 &&
         <section>
-          <strong className='text-lg text-gray-700 dark:text-gray-400'>Enlaces: {links.length}</strong>
-          <ul className='mt-3 space-y-3'>
+          <h3 className='text-xl font-bold text-gray-700 dark:text-gray-300'>Enlaces: {links.length}</h3>
+          <ul className='mt-4 space-y-3'>
             {links.map(l => <LinkCard key={l.id} link={l} />)}
           </ul>
         </section>
