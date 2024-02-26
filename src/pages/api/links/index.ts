@@ -18,6 +18,9 @@ export async function GET ({ locals }: APIContext) {
     const links = await Prisma.link.findMany({
       where: {
         userId: user.id
+      },
+      orderBy: {
+        updatedAt: 'desc'
       }
     })
 

@@ -21,6 +21,9 @@ export async function GET ({ locals, url }: APIContext) {
         link: {
           userId
         }
+      },
+      orderBy: {
+        createdAt: 'asc'
       }
     }
     const clicks = await (count ? Prisma.click.count(config) : Prisma.click.findMany(config))
