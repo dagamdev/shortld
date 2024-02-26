@@ -70,7 +70,7 @@ export default function LinkManager ({ link, origin }: {
         </p>
         <p className='text-end'>
           <strong className='block mb-w'>Ultima actualización:</strong>
-          <span>{link.createdAt.toLocaleString()}</span>
+          <span>{link.updatedAt.toLocaleString()}</span>
         </p>
       </section>
       <section className='space-x-4 mb-10'>
