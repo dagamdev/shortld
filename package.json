@@ -1,7 +1,7 @@
 {
   "name": "shortld",
   "type": "module",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
