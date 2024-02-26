@@ -80,6 +80,28 @@ const { clicks, linkId } = Astro.props
 
           targetTime = clickTime
         }
+
+        const endClick = clicks.at(-1)
+        if (endClick && clickChartData.length < 7) {
+          const initialTime = new Date(endClick.createdAt).getTime()
+          const turns = 7-clickChartData.length
+    
+          for (let d=1; d<=turns; d++) {
+            const newTime = initialTime + dayTime * d
+
+            if (newTime >= Date.now()) break
+
+            const date = Intl.DateTimeFormat('es-ES', {
+              day: 'numeric',
+              month: 'numeric'
+            }).format(newTime)
+    
+            clickChartData.push({
+              date,
+              clicks: 0
+            })
+          }
+        }
     
         if (clickChartData.length < 7) {
           const initialTime = new Date(clicks[0].createdAt).getTime()
