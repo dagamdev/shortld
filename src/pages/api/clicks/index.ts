@@ -16,17 +16,21 @@ export async function GET ({ locals, url }: APIContext) {
   }
 
   try {
-    const config = {
+    const baseConfig = {
       where: {
         link: {
           userId
         }
-      },
-      orderBy: {
-        createdAt: 'asc'
       }
     }
-    const clicks = await (count ? Prisma.click.count(config) : Prisma.click.findMany(config))
+    const clicks = await (count
+      ? Prisma.click.count(baseConfig)
+      : Prisma.click.findMany({
+        ...baseConfig,
+        orderBy: {
+          createdAt: 'asc'
+        }
+      }))
 
     return createJsonRes(clicks)
   } catch (error) {
