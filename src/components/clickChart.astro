@@ -40,19 +40,33 @@ const { clicks, linkId } = Astro.props
       const linkId = this.dataset.linkid
       
       customFetch(`clicks${linkId === undefined ? '' : '/' + linkId}`).then((data: ClickRes[]) => {
+        if ((!Array.isArray(data)) || data.length === 0) return
+        
         const clicks = data.slice(-100)
         const clickChartData: DayData[] = []
         const dayTime = 24 * 60 * 60_000
-        let targetTime = new Date(clicks[0].createdAt)
-        let targetDay = targetTime.getDay()
+        let targetTime = new Date(clicks[0].createdAt).getTime()
       
         for (const click of clicks) {
-          const clickTime = new Date(click.createdAt)
-          const diference = Math.abs(targetDay - clickTime.getDay())
+          const clickTime = new Date(click.createdAt).getTime()
+          const diference = Math.abs(targetTime - clickTime) / dayTime
           const date = new Intl.DateTimeFormat('es-ES', {
             day: 'numeric',
             month: 'numeric'
           }).format(clickTime)
+
+          if (diference > 1) {
+            for (let i=1; i<=diference-1; i++) {
+              const date = new Intl.DateTimeFormat('es-ES', {
+                day: 'numeric',
+                month: 'numeric'
+              }).format(targetTime + dayTime * i)
+              clickChartData.push({
+                date,
+                clicks: 0
+              })
+            }
+          }
     
           const chartData = clickChartData.find(f => f.date === date)
           if (chartData === undefined) {
@@ -63,24 +77,8 @@ const { clicks, linkId } = Astro.props
           } else {
             chartData.clicks++
           }
-    
-          if (diference <= 1) {
-            targetTime = clickTime
-            targetDay = clickTime.getDay()
-            continue
-          }
-          for (let i=0; i<=diference; i++) {
-            const date = new Intl.DateTimeFormat('es-ES', {
-              day: 'numeric',
-              month: 'numeric'
-            }).format(clickTime.getTime() + dayTime * i)
-            clickChartData.push({
-              date,
-              clicks: 0
-            })
-          }
+
           targetTime = clickTime
-          targetDay = clickTime.getDay()
         }
     
         if (clickChartData.length < 7) {
@@ -141,8 +139,12 @@ const { clicks, linkId } = Astro.props
     }
     
     .apexcharts-xaxistooltip {
-      color: white !important;
+      color: #f3f4f6 !important;
       background-color: #1f2937 !important;
+    }
+
+    .apexcharts-xaxis-texts-g tspan, .apexcharts-yaxis-texts-g tspan {
+      fill: #f3f4f6 !important;
     }
   }
 </style>
