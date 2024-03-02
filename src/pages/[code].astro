@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/index.astro'
 import { Prisma } from '@/lib/prisma'
+import PageNotFound from './404.astro'
 
 const { code } = Astro.params
 const isLoged = Astro.locals.session !== null
@@ -32,7 +33,7 @@ try {
 }
 ---
 
-<Layout title={`${code} | ShortLD`} description=`Código de enlace acortado ${code}. ${link?.url ? 'Enlace acortado: ' + link.url : 'El código de enlace no hace referencia a ningún enlace.'}\n Acorta enlaces sin límite de cantidad ni de longitud, y de forma gratuita.` >
+{link ? <Layout title={link ? `${code} | ShortLD` : 'Página no encontrada'} description={`${link ? `Código de enlace acortado ${code}. ${link?.url ? 'Enlace acortado: ' + link.url : 'El código de enlace no hace referencia a ningún enlace.'}\n ` : ''}Acorta enlaces sin límite de cantidad ni de longitud, y de forma gratuita.`} >
   <main class="flex items-center min-h-screen" data-url={link?.url} data-session={(Astro.locals.session !== null) + ''}>
     <section class="max-w-lg mx-auto text-lg text-center space-y-4 font-semibold">
       {isLoged === false && <>
@@ -44,7 +45,7 @@ try {
       <em class="block text-gray-900/70 dark:text-gray-200/60">Redirigiendo...</em>
     </section>
   </main>
-</Layout>
+</Layout> : <PageNotFound />}
 
 <script>
   const main = document.querySelector('main')
